@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Plant your mood</title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/load.css">
+        <script src="js/modernizr-2.6.2.min.js"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Niconne&amp;subset=latin-ext" rel="stylesheet">
+        <link rel="stylesheet" href="css/plant_0.css" type="text/css">
+    </head>
+    <body>
+        
+        <div class="container">
+            <div class="row">
+              <form>
+                <div class="weather" style="max-height: 100px;">
+                    <label class="radio-inline" id="sunny"><input type="radio" name="optradio">
+                      <img src="img/sunny.png">
+                    </label>
+                    <label class="radio-inline" id="rain"><input type="radio" name="optradio">
+                      <img src="img/rain.png">
+                    </label>
+                    <label class="radio-inline" id="lightning"><input type="radio" name="optradio">
+                      <img src="img/lightning.png">
+                    </label>
+                </div>
+                <div id="debug"></div>
+                <div class="plant">
+                  
+                    <div id="water" class="tools">
+                      <img id="imgwater" draggable="true" src="img/water.png" on/>
+                    </div>
+                    <div id="cut" class="tools">
+                      <img id="imgcut" draggable="true" src="img/cut.png" on/>
+                    </div>
+                    
+                  
+                  <div id="p1" class="dragTarget">
+                      <img id="pt" src="img/p1.png">
+                      <!--<div class=light>-->
+                      <!--</div>-->
+                  </div>
+                  
+                </div>
+                <div class="form-group" id="article">
+                    <textarea class="form-control" id="comment"
+                      placeholder="writing diary or tell me a story..." ></textarea>
+                    <button class="custom-btn submit" type="submit">SAVE</button>
+                </div>
+                <div id="loader-wrapper">
+                    <div id="loader"></div>
+                 
+                    <div class="loader-section section-left"></div>
+                    <div class="loader-section section-right"></div>
+                 
+                </div>
+              </form>
+            </div>
+        </div>
+        
+        
+    <script type="text/javascript">
+      var element = document.querySelector(".plant");
+      var light = document.querySelector(".light");
+      
+      //changeColor(element,light);
+        
+      function changeColor(e,l){ 
+        e.style.backgroundColor = 'rgb(36,20,14)'; 
+        l.style.backgroundColor = 'rgba(0,0,0,0)' 
+      };
+      
+      //tools drag
+      function doDragStart(e){
+          e.dataTransfer.setData("text/plan", e.target.id);
+      }
+      
+      imgwater.ondragstart = doDragStart;
+      imgcut.ondragstart = doDragStart;
+      
+      function doDragOver(e){
+          e.preventDefault();
+      }
+      
+      p1.ondragover = doDragOver;
+      
+      function doDragEnter(e){
+          e.target.classList.add("dragOver");
+          e.preventDefault();
+      }
+      
+      function doDragLeave(e){
+          e.target.classList.remove("dragOver");
+          e.preventDefault();
+      }
+      
+      p1.ondragenter = doDragEnter;
+      p1.ondragleave = doDragLeave;
+      
+      function doDrop(e){
+          var sSourceId = e.dataTransfer.getData("text/plan");  //img String
+          var useTool = document.getElementById(sSourceId); //img
+          if((e.target.id == "p1") || (e.target.id == "pt")){
+            console.log(e.target.id+ "get");
+            useTool.style.opacity = 0.4;
+            $(useTool).attr("draggable", "false");
+            //remove
+            // useTool.parentNode.removeChild(useTool);
+          }
+          e.target.classList.remove("dragOver");
+          e.preventDefault();
+      }
+      
+      p1.ondrop = doDrop;
+      
+      function doDragEnd(e){
+        e.preventDefault();
+      }
+      
+      imgwater.ondragend = doDragEnd;
+      imgcut.ondragend = doDragEnd;
+      
+      //plant img
+      var pt = document.querySelector("#pt");
+      function img() {
+        this.state = 0,
+        this.src = ["img/p1.png", "img/p2.png", "img/p3.png", "img/p4.png", "img/p5.png", "img/p6.png"],
+        this.next = function() {
+          if(this.state === 6) this.state = 0;
+          return this.src[this.state++];
+        }
+      }
+
+      const img1 = new img();
+      setInterval(function(){ 
+        pt.src = img1.next();
+      }, 1000);
+      
+      //weather button
+      $('#sunny').click(function(){
+        console.log("sunny");
+     })
+     $('#rain').click(function(){
+        console.log("rain");
+     })
+     $('#lightning').click(function(){
+        console.log("lightning");
+     })
+     
+     //loading page
+     $(document).ready(function() {
+  
+        setTimeout(function(){
+          $('body').addClass('loaded');
+          $('h1').css('color','#222222');
+        }, 3000);
+        
+      });
+     
+    </script>
+    </body>
+</html>

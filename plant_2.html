@@ -11,7 +11,7 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Niconne&amp;subset=latin-ext" rel="stylesheet">
-        <link rel="stylesheet" href="css/plant_1.css" type="text/css">
+        <link rel="stylesheet" href="css/plant_2.css" type="text/css">
         
         
         <style>
@@ -77,13 +77,18 @@
           <div class="circleMenu">
             <div class="avatar">
             </div>
-            <div id="water" class="tools">
-              <img id="imgwater" draggable="true" src="img/water.png" />
-            </div>
-            <div id="cut" class="tools">
-              <img id="imgcut" draggable="true" src="img/cut.png" />
+            <div class="inner">
+              <div id="water" class="tools">
+                <img id="imgwater" draggable="true" src="img/water.png" />
+              </div>
+              <div id="cut" class="tools">
+                <img id="imgcut" draggable="true" src="img/cut.png" />
+              </div>
             </div>
           </div>
+          
+          
+          
     <script type="text/javascript">
 
       
@@ -200,11 +205,11 @@
       
       
      //loading page
-     $(document).ready(function() {
+    $(document).ready(function() {
         document.getElementById('plantmood').reset();
         setTimeout(function(){
           $('body').addClass("loaded");
-        }, 3000);
+        }, 1000);
         
       });
      
